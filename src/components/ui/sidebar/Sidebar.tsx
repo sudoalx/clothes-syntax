@@ -1,5 +1,7 @@
 "use client";
+import { useUIStore } from "@/store";
 import Link from "next/link";
+import clsx from "clsx";
 import {
   IoCloseOutline,
   IoLogInOutline,
@@ -31,18 +33,27 @@ const SecondaryMenuItems: MenuItem[] = [
 ];
 
 export const Sidebar = () => {
+  const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
+  const closeMenu = useUIStore((state) => state.closeSideMenu);
+
   return (
     <>
-      {/* dark background */}
-      {/* <div className="fixed inset-0 bg-black bg-opacity-30 z-50 w-screen h-screen" /> */}
-      {/* blur */}
-      <div className="fade-in fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-30 backdrop-filter backdrop-blur-sm" />
+      {isSideMenuOpen && (
+        <div className="fade-in fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-30 backdrop-filter backdrop-blur-sm" />
+      )}
 
       {/* sidebar */}
-      <nav className="fixed inset-y-0 right-0 z-50 w-96 max-w-full bg-white h-screen shadow-lg p-4">
+      <nav
+        className={clsx(
+          "fixed inset-y-0 right-0 z-50 w-96 max-w-full bg-white h-screen shadow-lg p-4",
+          {
+            "translate-x-full": !isSideMenuOpen,
+          }
+        )}
+      >
         <IoCloseOutline
           size={50}
-          onClick={() => console.log("close")}
+          onClick={closeMenu}
           className="absolute top-4 right-4 text-2xl cursor-pointer z-50"
         />
         <div className="relative mt-14">
