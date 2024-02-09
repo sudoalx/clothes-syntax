@@ -1,3 +1,4 @@
+import { Title } from "@/components";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -17,7 +18,9 @@ export default function ({ params }: Props) {
   const name = id.charAt(0).toUpperCase() + id.slice(1);
   return (
     <div>
-      <h1>{name} category</h1>
+      <Title subtitle={`Products for ${name}`} className="mb-2">
+        {name}
+      </Title>
     </div>
   );
 }
