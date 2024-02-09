@@ -4,7 +4,7 @@ import "./globals.css";
 import { inter } from "@/config/fonts";
 
 export const metadata: Metadata = {
-  title: "Clothes Syntax",
+  title: "Clothes | Syntax",
   description: "A clothing store for developers;",
 };
 
