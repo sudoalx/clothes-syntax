@@ -1,4 +1,5 @@
 import type { Size } from "@/interfaces";
+import { clsx } from "clsx";
 
 interface Props {
   selectedSize: Size;
@@ -14,7 +15,9 @@ export const SizeSelector = ({ selectedSize, availableSizes }: Props) => {
         {availableSizes.map((size) => (
           <button
             key={size}
-            className="text-gray-500 border border-gray-300 px-3 py-1"
+            className={clsx("border border-gray-300 px-3 py-1", {
+              "text-white bg-blue-600": selectedSize === size,
+            })}
           >
             {size}
           </button>
