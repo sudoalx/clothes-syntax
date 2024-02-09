@@ -38,8 +38,12 @@ export const Sidebar = () => {
 
   return (
     <>
+      {/* Overlay */}
       {isSideMenuOpen && (
-        <div className="fade-in fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-30 backdrop-filter backdrop-blur-sm" />
+        <div
+          onClick={closeMenu}
+          className="fade-in fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-30 backdrop-filter backdrop-blur-sm"
+        />
       )}
 
       {/* sidebar */}
