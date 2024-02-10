@@ -2,7 +2,6 @@ import { ProductSildeshow, QuantitySelector, Title } from "@/components";
 import { SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
   };
 }
 
-export default function ({ params }: Props) {
+export default function ProductPage({ params }: Props) {
   const { slug } = params;
   const product = initialData.products.find((product) => product.slug === slug);
 
