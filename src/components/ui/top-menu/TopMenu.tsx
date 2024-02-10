@@ -5,7 +5,7 @@ import { MenuIcon } from "./MenuIcon";
 
 export const TopMenu = () => {
   return (
-    <nav className="flex items-center justify-between w-full h-16 px-8 bg-white shadow-md">
+    <nav className="flex items-center justify-between w-full h-16 px-2 md:px-8 bg-white shadow-md">
       <div>
         <Link href={"/"}>
           <span className={`${titleFont.className} antialiased font-bold`}>
