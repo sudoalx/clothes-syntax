@@ -39,8 +39,8 @@ export const ProductSildeshow = ({ images, title, className }: Props) => {
           <SwiperSlide key={image} className="rounded-lg">
             <Image
               alt={title}
-              width={300}
-              height={300}
+              width={1024}
+              height={800}
               src={`/products/${image}`}
               className="rounded-lg object-fit"
             />
