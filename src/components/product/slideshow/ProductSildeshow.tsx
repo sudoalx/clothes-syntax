@@ -8,7 +8,7 @@ import "./slideshow.css";
 import { Swiper as SwiperObject } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState } from "react";
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
 
 interface Props {
@@ -30,8 +30,9 @@ export const ProductSildeshow = ({ images, title, className }: Props) => {
         }
         spaceBetween={10}
         navigation={true}
+        autoplay={{ delay: 2500, disableOnInteraction: true }}
         thumbs={{ swiper: thumbsSwiper }}
-        modules={[FreeMode, Navigation, Thumbs]}
+        modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className="mySwiper2"
       >
         {images.map((image) => (
