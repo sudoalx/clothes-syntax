@@ -1,4 +1,4 @@
-import { QuantitySelector, Title } from "@/components";
+import { ProductSildeshow, QuantitySelector, Title } from "@/components";
 import { SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
@@ -22,14 +22,7 @@ export default function ({ params }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
       <div className="col-span-1 md:col-span-2 items-center">
-        <Title>{product.title}</Title>
-        <Image
-          src={`/products/${product.images[0]}`}
-          alt={product.title}
-          width={800}
-          height={800}
-          layout="responsive"
-        />
+        <ProductSildeshow images={product.images} title={product.title} />
       </div>
 
       <div className="px-5">
