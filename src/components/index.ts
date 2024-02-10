@@ -1,4 +1,5 @@
 export { ProductSildeshow } from "./product/slideshow/ProductSildeshow";
+export { ProductMobileSildeshow } from "./product/slideshow/ProductMobileSildeshow";
 
 export { SizeSelector } from "./product/size-selector/SizeSelector";
 export { QuantitySelector } from "./quantity-selector/QuantitySelector";
