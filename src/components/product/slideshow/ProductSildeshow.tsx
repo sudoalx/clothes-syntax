@@ -46,6 +46,27 @@ export const ProductSildeshow = ({ images, title, className }: Props) => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <Swiper
+        onSwiper={setThumbsSwiper}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode={true}
+        watchSlidesProgress={true}
+        modules={[FreeMode, Navigation, Thumbs]}
+        className="mySwiper"
+      >
+        {images.map((image) => (
+          <SwiperSlide key={image} className="rounded-lg">
+            <Image
+              alt={title}
+              width={300}
+              height={300}
+              src={`/products/${image}`}
+              className="rounded-lg object-fit"
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
