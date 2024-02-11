@@ -22,6 +22,10 @@ export default function CategoryPage({ params }: Props) {
     unisex: "For Everyone",
   };
 
+  if (!labels[id]) {
+    return notFound();
+  }
+
   return (
     <>
       <Title subtitle={`Products ${labels[id]}`} className="mb-2">
