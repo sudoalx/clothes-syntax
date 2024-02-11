@@ -158,10 +158,20 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               </div>
-              <div className="mt-5 mb-2 w-full flex text-center">
+              <div className="mt-5 mb-2 w-full flex flex-col">
+                <span className="text-xs">
+                  By confirming your order, you agree to our{" "}
+                  <Link href={"#"} className="underline text-blue-500">
+                    Terms and Conditions
+                  </Link>{" "}
+                  and{" "}
+                  <Link href={"#"} className="underline text-blue-500">
+                    Privacy Policy
+                  </Link>
+                </span>
                 <Link
                   href={"#"}
-                  className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all"
+                  className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all text-center mt-5"
                 >
                   Confirm order
                 </Link>
