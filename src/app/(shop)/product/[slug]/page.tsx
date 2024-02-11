@@ -51,6 +51,7 @@ export default function ProductPage({ params }: Props) {
           selectedSize={product.sizes[0]}
         />
         {/* Qty selector */}
+        <p className="text-gray-500 mb-5">Quantity</p>
         <QuantitySelector quantity={1} />
         {/* Add to cart */}
         <button className="btn-primary my-5">Add to cart</button>

@@ -15,7 +15,6 @@ export const QuantitySelector = ({ quantity }: Props) => {
   };
   return (
     <div className="my-5">
-      <p className="text-gray-500 mb-5">Quantity</p>
       <div className="flex items-center gap-3 mb-5">
         <button
           onClick={() => onQtyChange(-1)}
