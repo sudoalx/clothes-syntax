@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# A shopping store demo application using Next.js 14 (WIP)
 
-## Getting Started
+This is a simple shopping store demo application using Next.js 14. It is a simple application that allows users to view products, add products to the cart, and process payments. Design and assets based on the official Tesla store website, this application is a simple demonstration of how to use Next.js 14 to build a shopping store application.  
+This is part of the series of projects I am building as part of my final internship. I built this by following the Next.js course on [Udemy](<https://www.udemy.com/course/nextjs-fh/>) by Fernando Herrera. I decided to add my own twist by using a different name and a slightly different design but I used the same assets as the course project.
 
-First, run the development server:
+## How to run the application
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository
+2. Run `pnpm install` to install the dependencies
+3. Run `pnpm dev` to start the development server
+4. Open [http://localhost:3000](http://localhost:3000) to view the application in the browser
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can view the live demo of the application [here](https://clothes-syntax.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## TODO
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] Add a backend database to store products
+- [ ] Add server-side pagination
+- [ ] Finish pages functionality
+- [ ] Add authentication
+- [ ] Add a backend to handle payments
