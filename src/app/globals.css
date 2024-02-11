@@ -25,6 +25,7 @@ body {
       rgb(var(--background-start-rgb))
     )
     rgb(var(--background-end-rgb));
+  background-repeat: no-repeat;
 }
 
 @keyframes fadeIn {
