@@ -14,3 +14,5 @@ export { MenuIcon } from "./ui/top-menu/MenuIcon";
 
 export { PageNotFound } from "./ui/not-found/PageNotFound";
 export { Title } from "./ui/title/Title";
+
+export { Footer } from "./ui/footer/Footer";
