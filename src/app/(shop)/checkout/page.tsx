@@ -1,4 +1,4 @@
-import { QuantitySelector, Title } from "@/components";
+import { Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Image from "next/image";
 import Link from "next/link";
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
                   </Link>
                 </span>
                 <Link
-                  href={"#"}
+                  href={"/orders/123"}
                   className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all text-center mt-5"
                 >
                   Confirm order
