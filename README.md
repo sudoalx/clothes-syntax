@@ -25,6 +25,12 @@ This application uses a PostgreSQL database. You can set up a PostgreSQL databas
 docker-compose up -d
 ```
 
+Run prisma migrate to create the database schema:
+
+```bash
+pnpm prisma migrate dev
+```
+
 ## Demo
 
 You can view the live demo of the application [here](https://clothes-syntax.vercel.app/)
