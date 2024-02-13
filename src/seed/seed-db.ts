@@ -36,7 +36,14 @@ async function main() {
     });
 
     // 4. Seed product images
-    
+    const imagesData = images.map((image) => ({
+      url: image,
+      productId: dbProduct.id,
+    }));
+
+    await prisma.productImage.createMany({
+      data: imagesData,
+    });
   });
 
   console.log("Seed executed!");
