@@ -1,7 +1,14 @@
 import { initialData } from "./seed";
+import prisma from "../lib/prisma";
 
 async function main() {
-  console.log(initialData);
+  // 1. Delete all previous data
+  await Promise.all([
+    prisma.productImage.deleteMany(),
+    prisma.product.deleteMany(),
+    prisma.category.deleteMany(),
+  ]);
+
   console.log("Seed executed");
 }
 
