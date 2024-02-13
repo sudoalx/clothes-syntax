@@ -3,11 +3,9 @@ import { initialData } from "./seed";
 
 async function main() {
   // 1. Delete all previous data
-  await Promise.all([
-    prisma.productImage.deleteMany(),
-    prisma.product.deleteMany(),
-    prisma.category.deleteMany(),
-  ]);
+  await prisma.productImage.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
 
   // Get the initial data
   const { categories, products } = initialData;
