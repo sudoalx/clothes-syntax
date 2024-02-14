@@ -1,6 +1,8 @@
 "use client";
+import { generatePagination } from "@/utils";
+import clsx from "clsx";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 
 interface Props {
   totalPages: number;
@@ -10,7 +12,7 @@ export const Pagination = ({ totalPages }: Props) => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") ?? 1;
-  console.log({ pathName, searchParams, currentPage, totalPages });
+  const allPages = generatePagination(+currentPage, totalPages);
 
   const createPageLinks = (pageNumber: number | string) => {
     const params = new URLSearchParams(searchParams);
@@ -32,11 +34,20 @@ export const Pagination = ({ totalPages }: Props) => {
     params.set("page", pageNumber.toString());
     return `${pathName}?${params.toString()}`; // return the new page number
   };
+
+  if (+currentPage > totalPages) {
+    return redirect(createPageLinks(totalPages));
+  }
+  if (+currentPage < 1 || isNaN(+currentPage)) {
+    return redirect(createPageLinks(1));
+  }
+
   return (
     <div className="flex justify-center">
       <nav aria-label="Page navigation example">
         <ul className="flex list-style-none">
-          <li className="page-item disabled">
+          {/* Previous button */}
+          <li className={`page-item ${+currentPage === 1 ? "disabled" : ""}`}>
             <Link
               className={`
               page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded ${
@@ -51,37 +62,43 @@ export const Pagination = ({ totalPages }: Props) => {
               Previous
             </Link>
           </li>
-          <li className="page-item">
+
+          {/* Page numbers */}
+
+          {allPages.map((page, index) => (
+            <li key={`${index}-${page}`} className="page-item">
+              <Link
+                className={`page-link relative block py-1.5 px-3 border-0 outline-none transition-all duration-300 rounded ${
+                  +currentPage === page
+                    ? "text-white bg-blue-600 shadow-md"
+                    : "text-gray-800 bg-transparent hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                }`}
+                href={createPageLinks(page)}
+              >
+                {page}{" "}
+                {page === currentPage && (
+                  <span className="visually-hidden"></span>
+                )}
+              </Link>
+            </li>
+          ))}
+
+          {/* Next button */}
+          <li
+            className={`page-item ${
+              +currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
             <Link
-              className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              1
-            </Link>
-          </li>
-          <li className="page-item active">
-            <Link
-              className="page-link relative block py-1.5 px-3 border-0 bg-blue-600 outline-none transition-all duration-300 rounded text-white hover:text-white hover:bg-blue-600 shadow-md focus:shadow-md"
-              href="#"
-            >
-              2 <span className="visually-hidden"></span>
-            </Link>
-          </li>
-          <li className="page-item">
-            <Link
-              className="page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              href="#"
-            >
-              3
-            </Link>
-          </li>
-          <li className="page-item">
-            <Link
-              className={`page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded ${
-                +currentPage === totalPages
-                  ? "text-gray-500 pointer-events-none"
-                  : "text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
-              }`}
+              className={clsx(
+                "page-link relative block py-1.5 px-3 border-0 bg-transparent outline-none transition-all duration-300 rounded",
+                {
+                  "text-gray-500 pointer-events-none":
+                    +currentPage === totalPages,
+                  "text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none":
+                    +currentPage !== totalPages,
+                }
+              )}
               aria-disabled={+currentPage === totalPages ? "true" : "false"}
               href={createPageLinks(+currentPage + 1)}
             >
