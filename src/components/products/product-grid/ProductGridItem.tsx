@@ -22,13 +22,13 @@ export const ProductGridItem = ({ product }: Props) => {
           width={300}
           height={300}
           src={`/products/${displayImage}`}
-          alt={product.title}
+          alt={product.name}
           onMouseEnter={() => setDisplayImage(product.images[1])}
           onMouseLeave={() => setDisplayImage(product.images[0])}
           className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 transform-gpu"
         />
         <div className="p-4 flex flex-col">
-          <h3>{product.title}</h3>
+          <h3>{product.name}</h3>
           <p className="font-bold">${product.price}</p>
         </div>
       </Link>
