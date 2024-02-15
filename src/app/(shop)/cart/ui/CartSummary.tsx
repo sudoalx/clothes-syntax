@@ -1,6 +1,8 @@
 "use client";
 
 import { useCartStore } from "@/store";
+import { currencyFormat } from "@/utils";
+import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -26,21 +28,30 @@ export const CartSummary = () => {
             <span>Products</span>
             <span className="text-right">{itemsInCart}</span>
             <span>Subtotal</span>
-            <span className="text-right">${subTotal}</span>
+            <span className="text-right">{currencyFormat(subTotal)}</span>
             <span>
               Taxes <span className="text-sm">(15%)</span>
             </span>
-            <span className="text-right">${tax}</span>
+            <span className="text-right">{currencyFormat(tax)}</span>
             <span className="text-2xl mt-5">
               Total <span className="text-sm">(USD)</span>
             </span>
-            <span className="text-right text-2xl mt-5">${total}</span>
+            <span className="text-right text-2xl mt-5">
+              {currencyFormat(total)}
+            </span>
           </div>
         </div>
         <div className="mt-5 mb-2 w-full flex text-center">
           <Link
             href={"/checkout/address"}
-            className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all"
+            className={clsx(
+              "w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all",
+              {
+                "cursor-not-allowed bg-gray-300 pointer-events-none":
+                  itemsInCart === 0,
+              }
+            )}
+            aria-disabled={itemsInCart === 0}
           >
             Checkout
           </Link>
