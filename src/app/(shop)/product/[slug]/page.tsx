@@ -11,6 +11,7 @@ import {
 import { titleFont } from "@/config/fonts";
 import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
+import { AddToCart } from "./ui/AddToCart";
 
 interface Props {
   params: {
@@ -77,16 +78,10 @@ export default async function ProductPage({ params }: Props) {
           {product.name}
         </h1>
         <p className="text-gray-500 text-lg mb-5">${product.price}</p>
-        {/* Size selector */}
-        <SizeSelector
-          availableSizes={product.sizes}
-          selectedSize={product.sizes[0]}
-        />
-        {/* Qty selector */}
-        <p className="text-gray-500 mb-5">Quantity</p>
-        <QuantitySelector quantity={1} />
+
         {/* Add to cart */}
-        <button className="btn-primary my-5">Add to cart</button>
+        <AddToCart product={product} />
+
         {/* Description */}
         <h2 className="font-bold text-sm">Description</h2>
         <p className="font-light">{product.description}</p>
