@@ -10,6 +10,11 @@ interface Props {
 export const AddToCart = ({ product }: Props) => {
   const [size, setSize] = useState<Size | undefined>();
   const [quantity, setQuantity] = useState(1);
+  const [posted, setPosted] = useState(false);
+
+  const addToCart = () => {
+    setPosted(true);
+  };
 
   return (
     <>
@@ -20,12 +25,19 @@ export const AddToCart = ({ product }: Props) => {
         onSelectSize={setSize}
       />
 
+      {/* error message */}
+      {posted && !size && (
+        <p className="text-red-500 mb-5 fade-in">
+          A size must be selected before adding to cart.
+        </p>
+      )}
+
       {/* quantity selector */}
       <p className="text-gray-500 mb-5">Quantity</p>
       <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
 
       {/* add to cart button */}
-      <button className="btn-primary my-5" type="button">
+      <button className="btn-primary my-5" type="button" onClick={addToCart}>
         Add to cart
       </button>
     </>
