@@ -1,12 +1,12 @@
+import { getProductBySlug } from "@/actions";
 import {
   ProductMobileSildeshow,
   ProductSildeshow,
   QuantitySelector,
-  Title,
+  SizeSelector,
 } from "@/components";
-import { SizeSelector } from "@/components";
+
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -15,9 +15,9 @@ interface Props {
   };
 }
 
-export default function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: Props) {
   const { slug } = params;
-  const product = initialData.products.find((product) => product.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
@@ -30,19 +30,19 @@ export default function ProductPage({ params }: Props) {
         <ProductSildeshow
           className="hidden md:block"
           images={product.images}
-          title={product.title}
+          title={product.name}
         />
         {/* Mobile slideshow */}
         <ProductMobileSildeshow
           className="block md:hidden"
           images={product.images}
-          title={product.title}
+          title={product.name}
         />
       </div>
 
       <div className="px-5">
         <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
-          {product.title}
+          {product.name}
         </h1>
         <p className="text-gray-500 text-lg mb-5">${product.price}</p>
         {/* Size selector */}
