@@ -4,6 +4,8 @@ import { persist } from "zustand/middleware";
 
 interface State {
   cart: CartItem[];
+
+  // Methods
   addProductToCart: (product: CartItem) => void;
   getTotalItems: () => number;
   getSummaryInformation: () => {
@@ -52,6 +54,7 @@ export const useCartStore = create<State>()(
 
       addProductToCart: (product: CartItem) => {
         const { cart } = get();
+        console.log("cart:", cart);
 
         // 1. Check if the product is already in the cart
         const productInCart = cart.some(
