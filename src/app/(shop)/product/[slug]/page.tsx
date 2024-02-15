@@ -3,8 +3,6 @@ import { getProductBySlug } from "@/actions";
 import {
   ProductMobileSildeshow,
   ProductSildeshow,
-  QuantitySelector,
-  SizeSelector,
   StockLabel,
 } from "@/components";
 
@@ -47,7 +45,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: Readonly<Props>) {
   const { slug } = params;
   const product = await getProductBySlug(slug);
 
