@@ -9,6 +9,7 @@ interface Props {
 
 export const AddToCart = ({ product }: Props) => {
   const [size, setSize] = useState<Size | undefined>();
+  const [quantity, setQuantity] = useState(1);
 
   return (
     <>
@@ -21,7 +22,7 @@ export const AddToCart = ({ product }: Props) => {
 
       {/* quantity selector */}
       <p className="text-gray-500 mb-5">Quantity</p>
-      <QuantitySelector quantity={1} />
+      <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
 
       {/* add to cart button */}
       <button className="btn-primary my-5" type="button">
