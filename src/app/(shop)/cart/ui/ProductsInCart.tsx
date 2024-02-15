@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 
 export const ProductsInCart = () => {
   const [loaded, setLoaded] = useState(false);
+  const updateProductQuantity = useCartStore(
+    (state) => state.updateProductQuantity
+  );
   const productsInCart = useCartStore((state) => state.cart);
+  const removeProduct = useCartStore((state) => state.removeProduct);
 
   useEffect(() => {
     setLoaded(true);
@@ -17,6 +21,11 @@ export const ProductsInCart = () => {
   if (!loaded) {
     return <LoadingSkeleton />;
   }
+
+  if (productsInCart.length === 0) {
+    return <EmptyCart />;
+  }
+
   return (
     <div className="flex flex-col gap-5 mt-5">
       {productsInCart.map((product) => (
@@ -47,9 +56,14 @@ export const ProductsInCart = () => {
             <div className="flex flex-col">
               <QuantitySelector
                 quantity={product.quantity}
-                onQuantityChanged={(quantity) => console.log(quantity)}
+                onQuantityChanged={(quantity) =>
+                  updateProductQuantity(product, quantity)
+                }
               />
-              <button className="text-red-500 hover:text-red-600">
+              <button
+                className="text-red-500 hover:text-red-600"
+                onClick={() => removeProduct(product)}
+              >
                 Remove
               </button>
             </div>
@@ -81,6 +95,17 @@ const LoadingSkeleton = () => {
           </div>
         </div>
       ))}
+    </div>
+  );
+};
+
+const EmptyCart = () => {
+  return (
+    <div className="flex flex-col items-center text-center justify-center mt-5 space-y-5 bg-gray-300 rounded-lg p-10 shadow-md">
+      <h1 className="text-3xl font-bold">Your cart is empty</h1>
+      <Link className="text-blue-500 hover:text-blue-600" href="/">
+        Go to shop
+      </Link>
     </div>
   );
 };
