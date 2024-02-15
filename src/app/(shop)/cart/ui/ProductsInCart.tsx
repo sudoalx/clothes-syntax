@@ -1,3 +1,13 @@
+  const [loaded, setLoaded] = useState(false);
+  const productsInCart = useCartStore((state) => state.cart);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  if (!loaded) {
+    return <LoadingSkeleton />;
+  }
 const LoadingSkeleton = () => {
   return (
     // Skeleton loader while loading
