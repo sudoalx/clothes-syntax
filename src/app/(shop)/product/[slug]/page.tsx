@@ -1,3 +1,4 @@
+export const revalidate = 60 * 60 * 24 * 7; // 1 week
 import { getProductBySlug } from "@/actions";
 import {
   ProductMobileSildeshow,
