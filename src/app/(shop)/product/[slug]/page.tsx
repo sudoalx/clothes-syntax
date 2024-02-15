@@ -39,7 +39,7 @@ export async function generateMetadata(
       title: product?.name ?? "Product not found",
       description: product?.description ?? "Product not found",
       images: [
-        `https://clothes-syntax.vercel.app/product/products/${product?.images[1]}`,
+        `https://clothes-syntax.vercel.app/products/${product?.images[1]}`,
       ],
     },
   };
