@@ -1,14 +1,10 @@
 import { Title } from "@/components";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ProductsInCart } from "./ui/ProductsInCart";
 import { CartSummary } from "./ui/CartSummary";
-import { useCartStore } from "@/store";
 
 export default function CartPage() {
-  const productsInCart = useCartStore((state) => state.cart);
-  if (productsInCart.length === 0) redirect("/empty");
   return (
     <div className="flex justify-center items-center mb-28 px10 sm:px-0">
       <div className="flex flex-col w-full ">
