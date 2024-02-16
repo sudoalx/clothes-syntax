@@ -3,12 +3,13 @@ import { initialData } from "./seed";
 
 async function main() {
   // 1. Delete all previous data
+  await prisma.user.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
 
   // Get the initial data
-  const { categories, products } = initialData;
+  const { categories, products, users } = initialData;
   // 2. Seed categories
   const categoriesData = categories.map((name) => ({ name }));
 
