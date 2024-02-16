@@ -1,12 +1,21 @@
 "use client";
 
 import { authLogin } from "@/actions";
+import { useUIStore } from "@/store";
 import clsx from "clsx";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoInformationOutline, IoReloadCircle } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
+
+  useEffect(() => {
+    if (state === "Success") {
+      redirect("/");
+    }
+  }, [state]);
 
   return (
     <form action={dispatch} className="flex flex-col">
