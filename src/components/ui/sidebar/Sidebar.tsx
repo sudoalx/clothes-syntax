@@ -13,6 +13,7 @@ import {
   IoTicketOutline,
 } from "react-icons/io5";
 import { logout } from "@/actions";
+import { useSession } from "next-auth/react";
 
 interface MenuItem {
   title: string;
@@ -20,21 +21,14 @@ interface MenuItem {
   icon: JSX.Element;
 }
 
-const MainMenuItems: MenuItem[] = [
-  { title: "Profile", url: "/profile", icon: <IoPersonOutline size={20} /> },
-  { title: "Orders", url: "#", icon: <IoTicketOutline size={20} /> },
-  { title: "Login", url: "#", icon: <IoLogInOutline size={20} /> },
-];
-
-const SecondaryMenuItems: MenuItem[] = [
-  { title: "Products", url: "#", icon: <IoShirtOutline size={20} /> },
-  { title: "Orders", url: "#", icon: <IoTicketOutline size={20} /> },
-  { title: "Users", url: "#", icon: <IoPeopleOutline size={20} /> },
-];
-
 export const Sidebar = () => {
   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
   const closeMenu = useUIStore((state) => state.closeSideMenu);
+
+  const { data: session } = useSession();
+
+  const isAuthenticated = !!session?.user;
+  console.log(isAuthenticated, session?.user);
 
   return (
     <>
@@ -69,38 +63,67 @@ export const Sidebar = () => {
             className="w-full h-10 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
         </div>
+
         {/* Menu */}
-        {MainMenuItems.map((item) => (
+
+        <Link
+          href="/profile"
+          className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+        >
+          <IoPersonOutline size={20} className="mx-2 inline-block" />
+          Profile
+        </Link>
+        <Link
+          href="#"
+          className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+        >
+          <IoTicketOutline size={20} className="mx-2 inline-block" />
+          Orders
+        </Link>
+        {isAuthenticated && (
+          <button
+            className="flex w-full items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+            onClick={() => logout()}
+          >
+            <IoLogOutOutline size={20} className="mx-2" />
+            Logout
+          </button>
+        )}
+
+        {!isAuthenticated && (
           <Link
-            key={item.title}
-            href={item.url}
+            href="/auth/login"
             className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
           >
-            <span className="mx-2">{item.icon}</span>
-            {item.title}
+            <IoLogInOutline size={20} className="mx-2 inline-block" />
+            Login
           </Link>
-        ))}
-        <button
-          className="flex w-full items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
-          onClick={() => logout()}
-        >
-          <IoLogOutOutline size={20} className="mx-2" />
-          Logout
-        </button>
+        )}
 
         <hr className="my-4" />
 
         {/* Secondary Menu */}
-        {SecondaryMenuItems.map((item) => (
-          <Link
-            key={item.title}
-            href={item.url}
-            className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
-          >
-            <span className="mx-2">{item.icon}</span>
-            {item.title}
-          </Link>
-        ))}
+        <Link
+          href="#"
+          className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+        >
+          <IoShirtOutline size={20} className="mx-2 inline-block" />
+          Products
+        </Link>
+        <Link
+          href="#"
+          className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+        >
+          <IoTicketOutline size={20} className="mx-2 inline-block" />
+          Orders
+        </Link>
+        <Link
+          href="#"
+          className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+        >
+          <IoPeopleOutline size={20} className="mx-2 inline-block" />
+          Users
+        </Link>
       </nav>
     </>
   );
