@@ -20,7 +20,7 @@ interface MenuItem {
 }
 
 const MainMenuItems: MenuItem[] = [
-  { title: "Profile", url: "#", icon: <IoPersonOutline size={20} /> },
+  { title: "Profile", url: "/profile", icon: <IoPersonOutline size={20} /> },
   { title: "Orders", url: "#", icon: <IoTicketOutline size={20} /> },
   { title: "Login", url: "#", icon: <IoLogInOutline size={20} /> },
   { title: "Logout", url: "#", icon: <IoLogOutOutline size={20} /> },
