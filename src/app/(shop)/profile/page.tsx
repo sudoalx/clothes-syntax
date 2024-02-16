@@ -30,6 +30,9 @@ export default async function ProfilePage() {
       <p>{user.name}</p>
       <h3 className="text-2xl font-bold">Email</h3>
       <p>{user.email}</p>
+      <h3 className="text-2xl font-bold">Role</h3>
+      <p>{user.role}</p>
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </>
   );
 }
