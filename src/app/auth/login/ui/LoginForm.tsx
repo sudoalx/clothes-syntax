@@ -8,23 +8,31 @@ export const LoginForm = () => {
 
   return (
     <form action={dispatch} className="flex flex-col">
-      <label htmlFor="email">Email</label>
-      <input
-        className="px-5 py-2 border bg-gray-200 rounded mb-5"
-        type="email"
-        placeholder="example@example.com"
-        name="email"
-      />
+      <fieldset className="flex flex-col">
+        <label htmlFor="email" id="emailLabel">
+          Email
+        </label>
+        <input
+          id="email"
+          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          type="email"
+          placeholder="example@example.com"
+          name="email"
+        />
 
-      <label htmlFor="password">Password</label>
-      <input
-        className="px-5 py-2 border bg-gray-200 rounded mb-5"
-        type="password"
-        placeholder="*********"
-        name="password"
-      />
+        <label htmlFor="password" id="passwordLabel">
+          Password
+        </label>
+        <input
+          id="password"
+          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          type="password"
+          placeholder="*********"
+          name="password"
+        />
+      </fieldset>
 
-      <button type="submit" className="btn-primary">
+      <button type="submit" className="btn-primary" aria-label="Sign in">
         Sign in
       </button>
     </form>
