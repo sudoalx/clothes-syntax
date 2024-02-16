@@ -7,11 +7,14 @@ export async function authLogin(
   formData: FormData
 ) {
   try {
-    await signIn("credentials", Object.fromEntries(formData));
+    await signIn("credentials", {
+      ...Object.fromEntries(formData),
+      redirect: false,
+    });
+
+    return "Success";
   } catch (error) {
-    // if ((error as Error).message.includes("CredentialsSignin")) {
-    // }
-    // throw error;
+    console.error(error);
     return "CredentialsSignin";
   }
 }
