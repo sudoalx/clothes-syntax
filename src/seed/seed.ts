@@ -33,13 +33,13 @@ export const initialData: SeedData = {
   users: [
     {
       name: "User",
-      email: "user@sudoalx.dev",
+      email: "user@sudoalex.dev",
       password: bcryptjs.hashSync("userPassword", 10),
       role: "USER",
     },
     {
       name: "Admin",
-      email: "admin@sudoalx.dev",
+      email: "admin@sudoalex.dev",
       password: bcryptjs.hashSync("adminPassword", 10),
       role: "ADMIN",
     },
