@@ -156,9 +156,9 @@ export const Sidebar = () => {
           {isAdmin && (
             <div className="mt-8">
               <h3 className="text-xl font-bold mx-2">Admin</h3>
-              {menuItems.map((item, index) => (
+              {menuItems.map((item) => (
                 <Link
-                  key={index}
+                  key={item.title}
                   href={item.url}
                   className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
                 >
