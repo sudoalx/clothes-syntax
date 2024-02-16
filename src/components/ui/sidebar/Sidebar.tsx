@@ -12,6 +12,7 @@ import {
   IoShirtOutline,
   IoTicketOutline,
 } from "react-icons/io5";
+import { logout } from "@/actions";
 
 interface MenuItem {
   title: string;
@@ -23,7 +24,6 @@ const MainMenuItems: MenuItem[] = [
   { title: "Profile", url: "/profile", icon: <IoPersonOutline size={20} /> },
   { title: "Orders", url: "#", icon: <IoTicketOutline size={20} /> },
   { title: "Login", url: "#", icon: <IoLogInOutline size={20} /> },
-  { title: "Logout", url: "#", icon: <IoLogOutOutline size={20} /> },
 ];
 
 const SecondaryMenuItems: MenuItem[] = [
@@ -40,7 +40,8 @@ export const Sidebar = () => {
     <>
       {/* Overlay */}
       {isSideMenuOpen && (
-        <div
+        <button
+          aria-label="Close Menu"
           onClick={closeMenu}
           className="fade-in fixed inset-0 z-50 w-screen h-screen bg-black bg-opacity-30 backdrop-filter backdrop-blur-sm"
         />
@@ -79,6 +80,13 @@ export const Sidebar = () => {
             {item.title}
           </Link>
         ))}
+        <button
+          className="flex w-full items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
+          onClick={() => logout()}
+        >
+          <IoLogOutOutline size={20} className="mx-2" />
+          Logout
+        </button>
 
         <hr className="my-4" />
 
