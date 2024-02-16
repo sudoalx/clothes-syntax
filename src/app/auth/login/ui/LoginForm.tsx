@@ -1,7 +1,9 @@
 "use client";
 
 import { authLogin } from "@/actions";
-import { useFormState } from "react-dom";
+import clsx from "clsx";
+import { useFormState, useFormStatus } from "react-dom";
+import { IoInformationOutline, IoReloadCircle } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
@@ -29,12 +31,45 @@ export const LoginForm = () => {
           type="password"
           placeholder="*********"
           name="password"
+          autoComplete="current-password"
         />
       </fieldset>
+      <div
+        className="flex h-8 items-end space-x-1"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {state === "CredentialsSignin" && (
+          <>
+            <IoInformationOutline className="h-5 w-5 text-red-500" />
+            <p className="text-sm text-red-500">{state}</p>
+          </>
+        )}
+      </div>
 
-      <button type="submit" className="btn-primary" aria-label="Sign in">
-        Sign in
-      </button>
+      <LoginButton />
     </form>
   );
 };
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className={clsx("flex justify-center items-center", {
+        "btn-primary": !pending,
+        "btn-loading": pending,
+      })}
+      aria-label="Sign in"
+      aria-disabled={pending}
+      disabled={pending}
+    >
+      Sign in
+      {pending && (
+        <IoReloadCircle className="h-5 w-5 animate-spin inline-block ml-1" />
+      )}
+    </button>
+  );
+}
