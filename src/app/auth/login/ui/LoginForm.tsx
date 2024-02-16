@@ -7,9 +7,8 @@ export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
 
   return (
-    <form action={dispatch}>
+    <form action={dispatch} className="flex flex-col">
       <label htmlFor="email">Email</label>
-      <br />
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="email"
