@@ -54,7 +54,6 @@ export const useCartStore = create<State>()(
 
       addProductToCart: (product: CartItem) => {
         const { cart } = get();
-        console.log("cart:", cart);
 
         // 1. Check if the product is already in the cart
         const productInCart = cart.some(

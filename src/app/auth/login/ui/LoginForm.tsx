@@ -6,8 +6,6 @@ import { useFormState } from "react-dom";
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
 
-  console.log(state);
-
   return (
     <form action={dispatch}>
       <label htmlFor="email">Email</label>
