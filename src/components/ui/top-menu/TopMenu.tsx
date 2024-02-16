@@ -1,6 +1,6 @@
 import { titleFont } from "@/config/fonts";
 import Link from "next/link";
-import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import { MenuIcon } from "./MenuIcon";
 import { CartCounter } from "./CartCounter";
 
