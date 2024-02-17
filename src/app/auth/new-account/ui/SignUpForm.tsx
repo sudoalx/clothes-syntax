@@ -1,7 +1,6 @@
 "use client";
-import { registerUser } from "@/actions";
+import { login, registerUser } from "@/actions";
 import clsx from "clsx";
-import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -35,6 +34,8 @@ export const SignUpForm = () => {
     if (res.ok) {
       setErrorMessage("");
       setSuccessMessage("User registered successfully!");
+      await login(email.toLowerCase(), password);
+      window.location.replace("/");
     }
   };
 

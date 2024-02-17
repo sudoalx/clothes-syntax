@@ -18,3 +18,21 @@ export async function authLogin(
     return "CredentialsSignin";
   }
 }
+
+export const login = async (email: string, password: string) => {
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+    });
+
+    return { ok: true, status: "success" };
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      status: "error",
+      message: "Error logging in",
+    };
+  }
+};
