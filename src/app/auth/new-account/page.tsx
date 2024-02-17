@@ -1,6 +1,7 @@
 import { titleFont } from "@/config/fonts";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
+import { SignUpForm } from "./ui/SignUpForm";
 
 export default function SignUpPage() {
   return (
@@ -15,28 +16,7 @@ export default function SignUpPage() {
       <h1 className={`${titleFont.className} text-4xl mb-5`}>Sign Up</h1>
 
       <div className="flex flex-col">
-        <label htmlFor="name">Name</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="text"
-          placeholder="John Doe"
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="email"
-          placeholder="example@example.com"
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="password"
-          placeholder="*********"
-        />
-
-        <button className="btn-primary">Sign up</button>
-
+        <SignUpForm />
         {/* divisor line */}
         <div className="flex items-center my-5">
           <div className="flex-1 border-t border-gray-500"></div>
