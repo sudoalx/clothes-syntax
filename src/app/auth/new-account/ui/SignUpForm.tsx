@@ -1,5 +1,8 @@
 "use client";
+import { registerUser } from "@/actions";
 import clsx from "clsx";
+import Link from "next/link";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type FormInputs = {
@@ -9,6 +12,8 @@ type FormInputs = {
 };
 
 export const SignUpForm = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -16,8 +21,21 @@ export const SignUpForm = () => {
   } = useForm<FormInputs>();
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    /**
+     * Represents the data for the sign-up form.
+     */
     const { name, email, password } = data;
-    console.log({ name, email, password });
+    // Registers a new user using server action `registerUser`.
+    const res = await registerUser(name, email, password);
+
+    if (!res.ok) {
+      setErrorMessage(res.message);
+    }
+
+    if (res.ok) {
+      setErrorMessage("");
+      setSuccessMessage("User registered successfully!");
+    }
   };
 
   return (
@@ -35,7 +53,7 @@ export const SignUpForm = () => {
         {...register("name", {
           required: true,
           pattern: {
-            value: /^\p{L}+$/u,
+            value: /^[\p{L}\s]+$/u,
             message: "Invalid name",
           },
         })}
@@ -93,8 +111,19 @@ export const SignUpForm = () => {
           {errors.password.message}
         </span>
       )}
+      {successMessage && (
+        <>
+          <span className="text-green-500 text-sm mb-5">{successMessage}</span>
+          <span className="text-gray-500 text-sm mb-5">
+            Check your email for a verification link.
+          </span>
+        </>
+      )}
 
       <button className="btn-primary">Sign up</button>
+      {errorMessage && (
+        <span className="text-red-500 text-sm mt-5">{errorMessage}</span>
+      )}
     </form>
   );
 };
