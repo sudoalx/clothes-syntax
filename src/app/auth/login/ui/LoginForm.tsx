@@ -4,7 +4,7 @@ import { authLogin } from "@/actions";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { IoInformationOutline, IoReloadCircle } from "react-icons/io5";
 
 type FormInputs = {
@@ -22,20 +22,11 @@ export const LoginForm = () => {
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    const { email, password } = data;
-  };
-
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      action={dispatch}
-      className="flex flex-col"
-    >
+    <form action={dispatch} className="flex flex-col">
       <fieldset className="flex flex-col">
         <label htmlFor="email" id="emailLabel">
           Email
