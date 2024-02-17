@@ -4,8 +4,13 @@ import { authLogin } from "@/actions";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { IoInformationOutline, IoReloadCircle } from "react-icons/io5";
 
+type FormInputs = {
+  email: string;
+  password: string;
+};
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
 
@@ -15,29 +20,62 @@ export const LoginForm = () => {
     }
   }, [state]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInputs>();
+
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    const { email, password } = data;
+  };
+
   return (
-    <form action={dispatch} className="flex flex-col">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      action={dispatch}
+      className="flex flex-col"
+    >
       <fieldset className="flex flex-col">
         <label htmlFor="email" id="emailLabel">
           Email
         </label>
         <input
           id="email"
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          className={clsx(
+            "px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none",
+            {
+              "border-red-500": errors.email,
+            }
+          )}
           type="email"
           placeholder="example@example.com"
-          name="email"
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
+          })}
+          autoFocus
         />
+        {errors.email && (
+          <span className="text-red-500 text-sm mb-5">
+            {errors.email.message}
+          </span>
+        )}
 
         <label htmlFor="password" id="passwordLabel">
           Password
         </label>
         <input
           id="password"
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
+          className="px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none"
           type="password"
           placeholder="*********"
-          name="password"
+          {...register("password", {
+            required: true,
+          })}
           autoComplete="current-password"
         />
       </fieldset>
