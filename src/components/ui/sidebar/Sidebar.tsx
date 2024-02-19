@@ -124,7 +124,7 @@ export const Sidebar = () => {
               Profile
             </Link>
             <Link
-              href="#"
+              href="/orders"
               className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
             >
               <IoTicketOutline size={20} className="mx-2 inline-block" />
