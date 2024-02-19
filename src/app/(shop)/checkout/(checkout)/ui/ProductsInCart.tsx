@@ -26,7 +26,7 @@ export const ProductsInCart = () => {
   return (
     <div className="flex flex-col gap-5 mt-5">
       {productsInCart.map((product) => (
-        <div key={product.slug} className="flex flex-col">
+        <div key={product.slug + product.size} className="flex flex-col">
           <div className="flex justify-between items-center">
             <div className="flex gap-3">
               <Image
