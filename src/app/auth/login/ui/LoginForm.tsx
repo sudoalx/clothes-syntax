@@ -26,6 +26,7 @@ export const LoginForm = () => {
           className="px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none"
           type="email"
           placeholder="example@example.com"
+          name="email"
           autoFocus
         />
 
@@ -36,6 +37,7 @@ export const LoginForm = () => {
           id="password"
           className="px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none"
           type="password"
+          name="password"
           placeholder="*********"
           autoComplete="current-password"
         />
@@ -48,7 +50,9 @@ export const LoginForm = () => {
         {state === "CredentialsSignin" && (
           <>
             <IoInformationOutline className="h-5 w-5 text-red-500" />
-            <p className="text-sm text-red-500">{state}</p>
+            <p className="text-sm text-red-500">
+              The email or password is incorrect
+            </p>
           </>
         )}
       </div>
