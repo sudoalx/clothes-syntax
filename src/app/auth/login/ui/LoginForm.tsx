@@ -4,13 +4,8 @@ import { authLogin } from "@/actions";
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { useForm } from "react-hook-form";
 import { IoInformationOutline, IoReloadCircle } from "react-icons/io5";
 
-type FormInputs = {
-  email: string;
-  password: string;
-};
 export const LoginForm = () => {
   const [state, dispatch] = useFormState(authLogin, undefined);
 
@@ -20,11 +15,6 @@ export const LoginForm = () => {
     }
   }, [state]);
 
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormInputs>();
-
   return (
     <form action={dispatch} className="flex flex-col">
       <fieldset className="flex flex-col">
@@ -33,28 +23,11 @@ export const LoginForm = () => {
         </label>
         <input
           id="email"
-          className={clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none",
-            {
-              "border-red-500": errors.email,
-            }
-          )}
+          className="px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none"
           type="email"
           placeholder="example@example.com"
-          {...register("email", {
-            required: true,
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
-              message: "Invalid email address",
-            },
-          })}
           autoFocus
         />
-        {errors.email && (
-          <span className="text-red-500 text-sm mb-5">
-            {errors.email.message}
-          </span>
-        )}
 
         <label htmlFor="password" id="passwordLabel">
           Password
@@ -64,9 +37,6 @@ export const LoginForm = () => {
           className="px-5 py-2 border bg-gray-200 rounded mb-5 focus:border-blue-500 focus:outline-none"
           type="password"
           placeholder="*********"
-          {...register("password", {
-            required: true,
-          })}
           autoComplete="current-password"
         />
       </fieldset>
