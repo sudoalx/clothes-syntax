@@ -4,18 +4,34 @@ import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import clsx from "clsx";
+import { placeOrder } from "@/actions";
 
 export const PlaceOrder = () => {
   const [loaded, setLoaded] = useState(false);
+  const [placingOrder, setPlacingOrder] = useState(false);
 
   const address = useAddressStore((state) => state.address);
   const { itemsInCart, subTotal, tax, total } = useCartStore((state) =>
     state.getSummaryInformation()
   );
 
+  const cart = useCartStore((state) => state.cart);
+
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  const handlePlaceOrder = async () => {
+    setPlacingOrder(true);
+    const productsToOrder = cart.map((product) => ({
+      productId: product.id,
+      quantity: product.quantity,
+      size: product.size,
+    }));
+    await placeOrder(productsToOrder, address);
+    setPlacingOrder(false);
+  };
 
   if (!loaded) return <LoadingOrderSummary />;
 
@@ -92,12 +108,21 @@ export const PlaceOrder = () => {
               Privacy Policy
             </Link>
           </span>
-          <Link
-            href={"/orders/123"}
-            className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all text-center mt-5"
+          <span className="text-red-500 text-xs mt-2">
+            Error placing order, please try again later
+          </span>
+          <button
+            disabled={placingOrder}
+            onClick={handlePlaceOrder}
+            className={clsx(
+              "w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all text-center mt-5",
+              {
+                "animate-pulse": placingOrder,
+              }
+            )}
           >
             Confirm order
-          </Link>
+          </button>
         </div>
       </div>
     </div>
