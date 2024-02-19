@@ -89,21 +89,21 @@ export const Sidebar = () => {
           <div className="mt-8 sm:hidden">
             <h3 className="text-xl font-bold mx-2">Categories</h3>
             <Link
-              href="/profile"
+              href="/gender/men"
               className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
             >
               <IoMan size={20} className="mx-2 inline-block" />
               Men
             </Link>
             <Link
-              href="#"
+              href="/gender/women"
               className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
             >
               <IoWoman size={20} className="mx-2 inline-block" />
               Women
             </Link>
             <Link
-              href="#"
+              href="/gender/kids"
               className="flex items-center my-4 p-2 hover:bg-gray-100 rounded-md transition-all"
             >
               <TbMoodKidFilled size={20} className="mx-2 inline-block" />
