@@ -1,4 +1,5 @@
 "use client";
+import type { Country } from "@/interfaces";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 
@@ -14,7 +15,11 @@ interface AddressFormInput {
   saveDetails?: boolean;
 }
 
-export const AddressForm = () => {
+interface AddressFormProps {
+  countries: Country[];
+}
+
+export const AddressForm = ({ countries }: AddressFormProps) => {
   const {
     handleSubmit,
     register,
@@ -108,8 +113,11 @@ export const AddressForm = () => {
           {...register("country", { required: true })}
           defaultValue={"US"}
         >
-          <option value="MX">Mexico</option>
-          <option value="US">United States</option>
+          {countries.map((country) => (
+            <option key={country.id} value={country.id}>
+              {country.name}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -160,7 +168,7 @@ export const AddressForm = () => {
         </div>
       </div>
 
-      <div className="flex flex-col mb-2 sm:mt-10">
+      <div className="flex justify-end mb-2 sm:mt-10">
         <button
           disabled={!isValid}
           type="submit"
