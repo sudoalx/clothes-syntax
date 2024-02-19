@@ -6,9 +6,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { placeOrder } from "@/actions";
+import { useRouter } from "next/navigation";
 
 export const PlaceOrder = () => {
+  const router = useRouter();
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [placingOrder, setPlacingOrder] = useState(false);
 
   const address = useAddressStore((state) => state.address);
@@ -17,6 +20,7 @@ export const PlaceOrder = () => {
   );
 
   const cart = useCartStore((state) => state.cart);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   useEffect(() => {
     setLoaded(true);
@@ -29,8 +33,16 @@ export const PlaceOrder = () => {
       quantity: product.quantity,
       size: product.size,
     }));
-    await placeOrder(productsToOrder, address);
-    setPlacingOrder(false);
+    const res = await placeOrder(productsToOrder, address);
+
+    if (!res.ok) {
+      setPlacingOrder(false);
+      setErrorMessage(res.message);
+      return;
+    }
+
+    clearCart();
+    router.replace("/orders/" + res.order?.id);
   };
 
   if (!loaded) return <LoadingOrderSummary />;
@@ -108,9 +120,7 @@ export const PlaceOrder = () => {
               Privacy Policy
             </Link>
           </span>
-          <span className="text-red-500 text-xs mt-2">
-            Error placing order, please try again later
-          </span>
+          <span className="text-red-500 text-xs mt-2">{errorMessage}</span>
           <button
             disabled={placingOrder}
             onClick={handlePlaceOrder}
