@@ -12,7 +12,7 @@ interface Props {
   };
 }
 
-export default async function OrdersIdPage({ params }: Props) {
+export default async function OrdersIdPage({ params }: Readonly<Props>) {
   const { id } = params;
 
   const { ok, order } = await getOrderById(id);
