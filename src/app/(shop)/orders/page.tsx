@@ -1,6 +1,7 @@
 // https://tailwindcomponents.com/component/hoverable-table
 import { getOrdersByUser } from "@/actions";
 import { Title } from "@/components";
+import clsx from "clsx";
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -59,8 +60,19 @@ export default async function OrdersPage() {
                   {order.OrderAddress?.firstName} {order.OrderAddress?.lastName}
                 </td>
                 <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  <IoCardOutline className="text-green-800" />
-                  <span className="mx-2 text-green-800">Payment completed</span>
+                  <IoCardOutline
+                    className={clsx(
+                      "text-2xl",
+                      order.isPaid ? "text-green-800" : "text-red-800"
+                    )}
+                  />
+                  {order.isPaid ? (
+                    <span className="mx-2 text-green-800">
+                      Payment completed
+                    </span>
+                  ) : (
+                    <span className="mx-2 text-red-800">Payment pending</span>
+                  )}
                 </td>
                 <td className="text-sm text-gray-900 font-light px-6 ">
                   <Link
