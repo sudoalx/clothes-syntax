@@ -112,9 +112,8 @@ model Order {
   subTotal     Float
   total        Float
   tax          Float
-  status       String
   itemsInOrder Int
-  isPaid       Boolean
+  isPaid       Boolean   @default(false)
   paidAt       DateTime?
 
   // timestamps
@@ -122,25 +121,28 @@ model Order {
   updatedAt DateTime @updatedAt
 
   // Relations between Order and User
-  user         User           @relation(fields: [userId], references: [id])
-  userId       String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
   OrderItem    OrderItem[]
-  OrderAddress OrderAddress[]
+  OrderAddress OrderAddress?
+
+  transactionId String?
 }
 
 model OrderItem {
-  id        String @id @default(uuid())
-  quantity  Int
-  price     Float
-  size      Size
-  productId String
+  id       String @id @default(uuid())
+  quantity Int
+  price    Float
+  size     Size
 
   // Relations between OrderItem and Order
-  orderId String
   order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
 
   // Relations between OrderItem and Product
-  product Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
 }
 
 model OrderAddress {
@@ -150,13 +152,13 @@ model OrderAddress {
   address   String
   address2  String?
   zipCode   String
-  phone     String
   city      String
+  phone     String
 
   // Relations between Address and Country
   country   Country @relation(fields: [countryId], references: [id])
   countryId String
 
-  order   Order  @relation(fields: [orderId], references: [id])
+  Order   Order  @relation(fields: [orderId], references: [id])
   orderId String @unique
 }
