@@ -1,8 +1,8 @@
 import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
-import credentials from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import prisma from "@/lib/prisma";
+import prisma from "./lib/prisma";
 import bcryptjs from "bcryptjs";
 
 export const authConfig: NextAuthConfig = {
@@ -21,7 +21,7 @@ export const authConfig: NextAuthConfig = {
     },
   },
   providers: [
-    credentials({
+    Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
           .object({
