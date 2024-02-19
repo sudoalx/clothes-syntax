@@ -55,8 +55,8 @@ export const AddressForm = ({
   }, [storeAddress]);
 
   const onSubmit = async (data: AddressFormInput) => {
-    setAddress(data);
     const { saveDetails, ...restAddress } = data;
+    setAddress(data);
     if (saveDetails) {
       await setUserAddress(restAddress, session!.user.id);
     } else {
