@@ -1,7 +1,9 @@
 "use client";
+import { setUserAddress } from "@/actions";
 import type { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -33,6 +35,9 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
 
   const setAddress = useAddressStore((state) => state.setAddress);
   const storeAddress = useAddressStore((state) => state.address);
+  const { data: session } = useSession({
+    required: true,
+  });
 
   useEffect(() => {
     if (storeAddress.firstName) {
@@ -42,6 +47,10 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
 
   const onSubmit = (data: AddressFormInput) => {
     setAddress(data);
+    const { saveDetails, ...restAddress } = data;
+    if (saveDetails) {
+      setUserAddress(restAddress, session!.user.id);
+    }
   };
 
   return (
