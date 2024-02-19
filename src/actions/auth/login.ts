@@ -14,7 +14,7 @@ export async function authLogin(
 
     return "Success";
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return "CredentialsSignin";
   }
 }
@@ -28,7 +28,7 @@ export const login = async (email: string, password: string) => {
 
     return { ok: true, status: "success" };
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return {
       ok: false,
       status: "error",
