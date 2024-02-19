@@ -1,25 +1,10 @@
+import { getOrderById } from "@/actions/order/get-order-by-id";
 import { Title } from "@/components";
-import { initialData } from "@/seed/seed";
 import { clsx } from "clsx";
 import Image from "next/image";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 import { IoCardOutline } from "react-icons/io5";
-
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-  initialData.products[3],
-  initialData.products[4],
-  initialData.products[5],
-];
-
-const uniqueProducts = productsInCart.filter(
-  (product, index, self) =>
-    index ===
-    self.findIndex((p) => p.slug === product.slug && p.title === product.title)
-);
+import { currencyFormat } from "../../../../utils/currencyFormat";
 
 interface Props {
   params: {
@@ -27,16 +12,23 @@ interface Props {
   };
 }
 
-export default function OrdersIdPage({ params }: Props) {
+export default async function OrdersIdPage({ params }: Props) {
   const { id } = params;
 
-  const isPaymentPending = true;
+  const { ok, order } = await getOrderById(id);
+
+  if (!ok) redirect("/");
+
+  const address = order!.OrderAddress;
+
+  const isPaymentPending = !order?.isPaid;
 
   return (
     <div className="flex justify-center items-center mb-28 px10 sm:px-0">
       <div className="flex flex-col w-full ">
         <Title>
-          Order <span className="font-bold">#{id}</span>
+          Order{" "}
+          <span className="font-bold">#{id.slice(0, 6).toUpperCase()}</span>
         </Title>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Cart */}
@@ -57,33 +49,24 @@ export default function OrdersIdPage({ params }: Props) {
             </div>
             {/* Items */}
             <div className="flex flex-col gap-5 mt-5">
-              {uniqueProducts.map((product) => (
-                <div key={product.slug} className="flex flex-col">
+              {order?.OrderItem.map((item) => (
+                <div key={item.product.slug} className="flex flex-col">
                   <div className="flex justify-between items-center">
                     <div className="flex gap-3">
                       <Image
                         width={240}
                         height={240}
-                        src={`/products/${product.images[0]}`}
-                        alt={product.title}
+                        src={`/products/${item.product.ProductImage[0].url}`}
+                        alt={item.product.name}
                         className="w-32 h-32"
                       />
                       <div className="flex flex-col">
-                        <span>{product.title}</span>
+                        <span>{item.product.name}</span>
                         <span>
-                          ${product.price} x{" "}
-                          {
-                            productsInCart.filter(
-                              (p) => p.slug === product.slug
-                            ).length
-                          }
+                          ${item.price} x {item.quantity}
                         </span>
                         <span className="font-bold">
-                          Subtotal: $
-                          {product.price *
-                            productsInCart.filter(
-                              (p) => p.slug === product.slug
-                            ).length}
+                          Subtotal: {currencyFormat(item.price * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -102,34 +85,38 @@ export default function OrdersIdPage({ params }: Props) {
                   <h2 className="text-2xl mb-2">Shipping address</h2>
                   <div className="mb-10">
                     <span>
-                      Name: <span className="font-bold">John Doe</span>
-                    </span>
-                    <br />
-                    <span>
-                      Address: <span className="font-bold">1234 Main St.</span>
-                    </span>
-                    <br />
-                    <span>
-                      Address 2:{" "}
+                      Name:{" "}
                       <span className="font-bold">
-                        Apartment, studio, or floor
+                        {address?.firstName} {address?.lastName}
                       </span>
                     </span>
                     <br />
                     <span>
-                      Zip Code: <span className="font-bold">12345-6789</span>
+                      Address:{" "}
+                      <span className="font-bold">{address?.address}</span>
                     </span>
                     <br />
                     <span>
-                      City: <span className="font-bold">New York</span>
+                      Address 2:{" "}
+                      <span className="font-bold">{address?.address2}</span>
                     </span>
                     <br />
                     <span>
-                      Country: <span className="font-bold">United States</span>
+                      Zip Code:{" "}
+                      <span className="font-bold">{address?.zipCode}</span>
                     </span>
                     <br />
                     <span>
-                      Phone: <span className="font-bold">123-456-7890</span>
+                      City: <span className="font-bold">{address?.city}</span>
+                    </span>
+                    <br />
+                    <span>
+                      Country:{" "}
+                      <span className="font-bold">{address?.countryId}</span>
+                    </span>
+                    <br />
+                    <span>
+                      Phone: <span className="font-bold">{address?.phone}</span>
                     </span>
                   </div>
                 </div>
@@ -140,40 +127,23 @@ export default function OrdersIdPage({ params }: Props) {
                   <div className="grid grid-cols-2">
                     <span>Products</span>
                     <span className="text-right">
-                      {productsInCart.length} items
+                      {order?.OrderItem.length}
                     </span>
                     <span>Subtotal</span>
                     <span className="text-right">
-                      $
-                      {productsInCart.reduce(
-                        (acc, product) => acc + product.price,
-                        0
-                      )}
+                      {currencyFormat(order!.subTotal)}
                     </span>
                     <span>
                       Taxes <span className="text-sm">(15%)</span>
                     </span>
                     <span className="text-right">
-                      $
-                      {productsInCart.reduce(
-                        (acc, product) => acc + product.price,
-                        0
-                      ) * 0.15}
+                      {currencyFormat(order!.tax)}
                     </span>
                     <span className="text-2xl mt-5">
                       Total <span className="text-sm">(USD)</span>
                     </span>
                     <span className="text-right text-2xl mt-5">
-                      $
-                      {productsInCart.reduce(
-                        (acc, product) => acc + product.price,
-                        0
-                      ) +
-                        productsInCart.reduce(
-                          (acc, product) => acc + product.price,
-                          0
-                        ) *
-                          0.15}
+                      {currencyFormat(order!.total)}
                     </span>
                   </div>
                 </div>
