@@ -1,5 +1,5 @@
 import { getOrderById } from "@/actions/order/get-order-by-id";
-import { Title } from "@/components";
+import { PayPalButton, Title } from "@/components";
 import { clsx } from "clsx";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -150,25 +150,11 @@ export default async function OrdersIdPage({ params }: Readonly<Props>) {
               </div>
               <div className="mt-5 mb-2 w-full flex flex-col">
                 {isPaymentPending ? (
-                  <button className="w-full bg-blue-500 text-white py-3 px-5 rounded-lg hover:bg-blue-600 transition-all text-center mt-5">
-                    Pay now
-                  </button>
+                  <PayPalButton amount={order!.total} orderId={order!.id} />
                 ) : (
-                  <div
-                    className={clsx(
-                      "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
-                      {
-                        "bg-red-500": isPaymentPending,
-                        "bg-green-700": !isPaymentPending,
-                      }
-                    )}
-                  >
-                    <IoCardOutline className="text-2xl mr-2" />
-                    <span>
-                      Payment status:{" "}
-                      {isPaymentPending ? "Pending" : "Completed"}
-                    </span>
-                  </div>
+                  <span className="text-center text-green-700 font-bold">
+                    Payment completed
+                  </span>
                 )}
               </div>
             </div>

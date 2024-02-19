@@ -20,3 +20,4 @@ export { Footer } from "./ui/footer/Footer";
 export { Pagination } from "./ui/pagination/Pagination";
 
 export { Providers } from "./providers/Providers";
+export { PayPalButton } from "./paypal/PayPalButton";
