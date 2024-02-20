@@ -41,7 +41,7 @@ export const Sidebar = () => {
     },
     {
       title: "Orders",
-      url: "/orders",
+      url: "/admin/orders",
       icon: <IoTicketOutline size={20} className="mx-2 inline-block" />,
     },
     {
