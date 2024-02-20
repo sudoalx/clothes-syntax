@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 
 import { auth } from "@/auth.config";
 import type { Address, Size } from "@/interfaces";
+import { revalidatePath } from "next/cache";
 
 interface ProductToOrder {
   productId: string;
@@ -131,6 +132,7 @@ export const placeOrder = async (
         orderAddress: orderAddress,
       };
     });
+    revalidatePath("/orders");
 
     return {
       ok: true,
