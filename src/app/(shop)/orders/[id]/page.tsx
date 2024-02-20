@@ -148,14 +148,19 @@ export default async function OrdersIdPage({ params }: Readonly<Props>) {
                   </div>
                 </div>
               </div>
-              <div className="mt-5 mb-2 w-full flex flex-col">
-                {isPaymentPending ? (
-                  <PayPalButton amount={order!.total} orderId={order!.id} />
-                ) : (
-                  <span className="text-center text-green-700 font-bold">
-                    Payment completed
-                  </span>
+              <div
+                className={clsx(
+                  "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white my-5",
+                  {
+                    "bg-red-500": isPaymentPending,
+                    "bg-green-700": !isPaymentPending,
+                  }
                 )}
+              >
+                <IoCardOutline className="text-2xl mr-2" />
+                <span>
+                  Payment status: {isPaymentPending ? "Pending" : "Completed"}
+                </span>
               </div>
             </div>
           </div>
