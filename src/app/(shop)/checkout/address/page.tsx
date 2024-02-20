@@ -2,13 +2,14 @@ import { Title } from "@/components";
 import { AddressForm } from "./ui/AddressForm";
 import { getCountries, getUserAddress } from "@/actions";
 import { auth } from "@/auth.config";
+import { redirect } from "next/navigation";
 
 export default async function AddressPage() {
   const countries = await getCountries();
   const session = await auth();
 
   if (!session) {
-    return <h3>You need to be logged in to access this page</h3>;
+    redirect("/auth/login");
   }
 
   const userAddress = (await getUserAddress(session.user.id)) || {};
